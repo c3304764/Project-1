@@ -1,0 +1,132 @@
+/*
+This program will us two different cyphers to encrypt
+and decrypt messages using the caeser and substitution cypher methods.
+*/
+
+#include <stdio.h>
+
+void cypher(int x, char text, int key, int i, int n); 
+
+int main() { //the start of the main function
+
+char text[200], ch; //declares the text variables needed to recieve and print messages
+int key, x, i, n; //declares the number variables required in calculations and algorithms
+
+
+printf("Would you like to encrypt or decrypt your text?\nPress 1 for encryption and 2 for decrytion: "); //Presents an offer to the user
+
+scanf("%d", &x);
+    getchar();
+    switch (x){ //a switch used to differentiate between encrypting and decrypting
+        
+        case 1: // this section is the code required to encrypt the message 
+        
+        printf("Please enter your text to be encrypted: "); 
+        gets(text); // allows the user to enter their message
+        printf("Please enter the encryption key: ");
+        scanf("%d", &n); // takes the users key
+        key = n % 26; //makes sure the user cant have a key over 26
+        for(i = 0; text[i] != '\0'; i++) //starts a loop to recognise all values in the message
+        {
+            ch = text[i]; //defines text as ch
+            
+            
+                
+            if(ch >= 65 && ch <= 90) // if that works on the higher case letters
+            {
+                ch = ch + key; // algorithm designed to encrypt message
+                text[i] = ch; //records the ecrypted values and stores them
+        		
+        		if(ch >= 91) // this if statement is a catch for values that go over 90
+        		{
+        		    ch = ch - 26;
+        		    text[i] = ch; // records encrypted value and stores it
+        		}
+            
+            }
+        
+            if(ch >= 97 && ch <= 122) // if statement that works on the lower case letters
+            {
+               ch = ch + key - 26; // algorithm to encrypt 
+               text[i] = ch; 
+                
+                if(ch < 123 - 26) //catches values that go below the lower case letters
+                {
+                ch = ch + 26;
+                text[i] = ch;
+                }
+               
+            }
+            
+            
+            
+        }
+        printf("Your encoded message is %s", text); //prints the encoded message
+        break;
+        
+        
+        case 2: //start of decryption with caeser cypher
+        printf("Please enter the text to be decoded: ");
+        gets(text); //inputs text
+        printf("Please enter your key: ");
+        scanf("%d", &n); //inputs key
+                
+                key = n % 26; //key limit of 26
+				
+				for(i = 0; text[i] != '\0'; i++) //starts a loop 
+				{
+					ch = text[i]; //defines the text as ch
+            
+            
+                
+					if(ch >= 65 && ch <= 90) //starts the algorithm for capital letters
+					{
+						ch = ch - key;  // algorithm designed to decrypt an encrypted word or sentence
+						text[i] = ch;
+						if(ch <= 64) // if value designed to catch values below the upper case letters
+						{
+							ch = ch + 26; // algorithm designed to catch values below 65
+							text[i] = ch;
+						
+						}
+            
+					}
+        
+					if(ch >= 97 && ch <= 122) // if value dealing with lower case letters
+					{
+					ch = ch - key; // algorithm that deals with the lower case letters
+					text[i] = ch;
+						if(ch < 123 - 26) // catch if values go out of the lower case letter values
+						{
+							ch = ch + 26;
+							text[i] = ch;
+						}
+               
+					}
+            
+            
+            
+				}
+                printf("Your decoded message is %s", text); //prints decoded text
+                
+                
+                
+        break;
+        
+        default:
+        printf("This value is not an option"); //stops other vaules e.g 4 and 5 being entered
+        break;
+        
+        
+        
+        
+        
+    }
+    
+    return 0; //end the main function
+}
+
+void cypher(int x, char text, int key, int i, int n);
+
+
+
